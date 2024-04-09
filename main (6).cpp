@@ -81,27 +81,27 @@ public:
   std::map<int, std::set<std::pair<int, int>>> adjList;
   bool constructionTime = false;
   std::map<std::pair<int, int>, int> shortestpaths;
-  Djikstra djikstra;
-  FloydWarshall floydWarshall;
 };
 
 class delegating{
 public:
   Graph adjList;
+  Djikstra djikstra;
+  FloydWarshall floydWarshall;
   void sp_length(int a, int b){
     if (adjList.constructionTime){
-      auto result = adjList.djikstra.djikstra(adjList.shortestpaths, adjList.adjList, a, b);
+      auto result = djikstra.djikstra(adjList.shortestpaths, adjList.adjList, a, b);
       std::cout << "Shortest path length with Djikstra: " << result.first;
     }
     else{
       std::cout << "Shortest path length with Floyd Warshall: ";
-      adjList.floydWarshall.floydWarshall(adjList.shortestpaths, adjList.adjList, a, b);
+      floydWarshall.floydWarshall(adjList.shortestpaths, adjList.adjList, a, b);
     }
     std::cout << std::endl;
   }
   void sp_route(int a, int b){
-    auto result = adjList.djikstra.djikstra(adjList.shortestpaths, adjList.adjList, a, b);
-    std::cout << "Shortest path route with Dijkstra: ";
+    auto result = djikstra.djikstra(adjList.shortestpaths, adjList.adjList, a, b);
+    std::cout << "Shortest path route: ";
     for (int vertex : result.second) {
       std::cout << vertex << " ";
     }
